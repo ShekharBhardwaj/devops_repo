@@ -4,6 +4,11 @@ pipeline{
     tools {
         maven 'maven'
     }
+    environment{
+        artifactId = readMavenPom().getArtifactId()
+        version = readMavenPom().getVersion()
+        name = readMavenPom().getName()
+    }
 
     stages {
         // Specify various stage with in stages
@@ -25,7 +30,26 @@ pipeline{
         // publish the artifacts to nexus
         stage ('publish to nexus'){
             steps {
-                nexusArtifactUploader artifacts: [[artifactId: 'devopsDemo', classifier: '', file: 'target/devopsDemo-0.0.11-SNAPSHOT.war', type: 'war']], credentialsId: 'newadmin', groupId: 'com.bhardwaj.devops', nexusUrl: '172.20.10.160:8081', nexusVersion: 'nexus3', protocol: 'http', repository: 'devops_repo-SNAPSHOT', version: '0.0.11-SNAPSHOT'
+                nexusArtifactUploader artifacts: 
+                [[artifactId: 'devopsDemo', 
+                classifier: '', 
+                file: 'target/devopsDemo-0.0.11-SNAPSHOT.war', 
+                type: 'war']], 
+                credentialsId: 'newadmin', 
+                groupId: 'com.bhardwaj.devops', 
+                nexusUrl: '172.20.10.160:8081', 
+                nexusVersion: 'nexus3', 
+                protocol: 'http', 
+                repository: 'devops_repo-SNAPSHOT', 
+                version: '0.0.11-SNAPSHOT'
+            }
+        }
+
+        stage ('print the information'){
+            steps {
+                echo "Artifact ID is '${artifactId}'"
+                echo "Version number is '${version}'"
+                echo "Name is '${name}'"
             }
         }
 
