@@ -32,11 +32,11 @@ pipeline{
         stage ('publish to nexus'){
             steps {
                 script {
-                def NexusRepo = Version.endswith("SNAPSHOT") ? "devops_repo-SNAPSHOT" : "devops_repo-RELEASE"
+                def NexusRepo = Version.endsWith("SNAPSHOT") ? "devops_repo-SNAPSHOT" : "devops_repo-RELEASE"
                 nexusArtifactUploader artifacts: 
                 [[artifactId: "${ArtifactId}", 
                 classifier: '', 
-                file: 'target/devopsDemo-0.0.11-SNAPSHOT.war', 
+                file: "target/${ArtifactId}-${Version}.war", 
                 type: 'war']], 
                 credentialsId: 'newadmin', 
                 groupId: "${GroupId}", 
