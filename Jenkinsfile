@@ -8,6 +8,7 @@ pipeline{
         ArtifactId = readMavenPom().getArtifactId()
         Version = readMavenPom().getVersion()
         Name = readMavenPom().getName()
+        GroupId = readMavenPom().getGroupId()
     }
 
     stages {
@@ -31,17 +32,17 @@ pipeline{
         stage ('publish to nexus'){
             steps {
                 nexusArtifactUploader artifacts: 
-                [[artifactId: 'devopsDemo', 
+                [[artifactId: '${ArtifactId}', 
                 classifier: '', 
                 file: 'target/devopsDemo-0.0.11-SNAPSHOT.war', 
                 type: 'war']], 
                 credentialsId: 'newadmin', 
-                groupId: 'com.bhardwaj.devops', 
+                groupId: '${GroupId}', 
                 nexusUrl: '172.20.10.160:8081', 
                 nexusVersion: 'nexus3', 
                 protocol: 'http', 
                 repository: 'devops_repo-SNAPSHOT', 
-                version: '0.0.11-SNAPSHOT'
+                version:  '${Version}'
             }
         }
 
