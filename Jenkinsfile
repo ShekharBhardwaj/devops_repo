@@ -22,6 +22,12 @@ pipeline{
 
             }
         }
+        // publish the artifacts to nexus
+        stage ('publish to nexus'){
+            steps {
+                nexusArtifactUploader artifacts: [[artifactId: 'devopsDemo', classifier: '', file: 'target/devopsDemo-0.0.10-SNAPSHOT.war', type: 'war']], credentialsId: '28bc75b6-2514-436d-abaa-eeb3a175afbb', groupId: 'com.bhardwaj.devops', nexusUrl: '172.20.10.160:8081', nexusVersion: 'nexus3', protocol: 'http', repository: 'devops_repo-SNAPSHOT', version: '0.0.10-SNAPSHOT'
+            }
+        }
 
         // Stage3 : Publish the source code to Sonarqube
         stage ('Sonarqube Analysis'){
