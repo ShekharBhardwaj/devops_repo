@@ -32,17 +32,17 @@ pipeline{
         stage ('publish to nexus'){
             steps {
                 nexusArtifactUploader artifacts: 
-                [[artifactId: '${ArtifactId}', 
+                [[artifactId: "${ArtifactId}", 
                 classifier: '', 
                 file: 'target/devopsDemo-0.0.11-SNAPSHOT.war', 
                 type: 'war']], 
                 credentialsId: 'newadmin', 
-                groupId: '${GroupId}', 
+                groupId: "${GroupId}", 
                 nexusUrl: '172.20.10.160:8081', 
                 nexusVersion: 'nexus3', 
                 protocol: 'http', 
                 repository: 'devops_repo-SNAPSHOT', 
-                version:  '${Version}'
+                version:  "${Version}"
             }
         }
 
