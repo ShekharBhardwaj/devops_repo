@@ -4,7 +4,7 @@
   <groupId>com.bhardwaj.devops</groupId>
   <artifactId>devopsDemo</artifactId>
   <packaging>war</packaging>
-  <version>0.0.10-SNAPSHOT</version>
+  <version>0.0.11-SNAPSHOT</version>
   <name>devopsDemo</name>
   <url>http://maven.apache.org</url>
   <dependencies>
